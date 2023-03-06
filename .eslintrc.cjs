@@ -15,6 +15,7 @@ module.exports = {
   plugins: [
     'vue',
   ],
+  ignorePatterns: ['node_modules/'],
   overrides: [
     {
       files: '**/*.vue',
