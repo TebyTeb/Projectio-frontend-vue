@@ -11,7 +11,7 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 
 // Styles
-import './assets/main.css'
+import './assets/base.css'
 
 app
   .use(createPinia())
