@@ -1,14 +1,12 @@
 <template>
-  <v-main>
-    <MessageBoard />
-  </v-main>
+  <h1>This is my about page</h1>
 </template>
 
 <script>
-import MessageBoard from '../components/MessageBoard.vue'
+// import MessageBoard from '../components/MessageBoard.vue'
 export default {
   components: {
-    MessageBoard
+    // MessageBoard
   },
   data: () => ({
     cards: ['Today', 'Yesterday']
