@@ -6,6 +6,7 @@ export default {
       ['mdi-inbox-arrow-down', 'Inbox', 'home'],
       ['mdi-send', 'Send', 'about'],
       ['mdi-delete', 'Trash', 'welcome'],
+      ['mdi-delete', 'Trash', 'welcome'],
       ['mdi-alert-octagon', 'Spam', 'wabout'],
     ],
   })
