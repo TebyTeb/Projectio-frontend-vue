@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/Default.vue'),
+    component: () => import('@/layouts/Welcome.vue'),
     children: [
       {
         path: '',
@@ -22,8 +22,8 @@ const routes = [
     ],
   },
   {
-    path: '/welcome',
-    component: () => import('@/layouts/Welcome.vue'),
+    path: '/workspace',
+    component: () => import('@/layouts/Workspace.vue'),
     children: [
       {
         path: '',
