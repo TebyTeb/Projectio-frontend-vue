@@ -7,7 +7,7 @@ const routes = [
     component: () => import('@/layouts/Welcome.vue'),
     children: [
       {
-        path: '',
+        path: 'home',
         name: 'home',
         component: ()=> import('../views/HomeView.vue')
       },
@@ -17,7 +17,7 @@ const routes = [
         component: () => import('@/views/AboutView.vue')
       },
       {
-        path: 'login',
+        path: '',
         name: 'login',
         component: () => import('@/views/LoginView.vue')
       }
@@ -29,7 +29,7 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'welcome',
+        name: 'workspace',
         component: ()=> import('@/views/HomeView.vue')
       },
       {
