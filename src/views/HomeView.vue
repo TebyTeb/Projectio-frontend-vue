@@ -1,18 +1,20 @@
+<template>
+  <pre>
+    {{ store.getEmail }}
+    {{ store.getToken }}
+  </pre>
+</template>
+
 <script>
-// import Drawer from '../components/navigation/Drawer.vue'
-import MessageBoard from '../components/MessageBoard.vue'
-// import SystemBar from '../components/navigation/SystemBar.vue'
+import { useAuthStore } from '../stores/authStore'
+
 export default {
-  components: {
-    // SystemBar,
-    // Drawer,
-    MessageBoard
+  data() {
+    return {
+      store: useAuthStore()
+    }
   }
 }
 </script>
-
-<template>
-  <MessageBoard />
-</template>
 
 <style></style>

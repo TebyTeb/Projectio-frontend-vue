@@ -1,6 +1,8 @@
 <template>
-  <p>I'm the login view!!</p>
-  <LoginForm />
+  <v-container>
+    <p>I'm the login view!!</p>
+    <LoginForm />
+  </v-container>
 </template>
 
 <script>
