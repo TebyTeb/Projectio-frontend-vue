@@ -24,6 +24,7 @@
         required
         @input="v$.loginData.password.$touch"
         @blur="v$.loginData.password.$touch"
+        @keyup.enter="login"
         />
       </v-form>
     </v-card-text>
