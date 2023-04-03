@@ -52,6 +52,7 @@
           required
           @input="v$.signupData.password.$touch"
           @blur="v$.signupData.password.$touch"
+          @keyup.enter="signup"
         />
         <v-text-field
           v-model="password2"
@@ -63,6 +64,7 @@
           required
           @input="v$.password2.$touch"
           @blur="v$.password2.$touch"
+          @keyup.enter="signup"
         />
       </v-form>
     </v-card-text>
