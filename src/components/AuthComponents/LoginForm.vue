@@ -76,6 +76,7 @@ export default {
         this.store.login(response.email, response.token)
         this.loginData.email = ''
         this.loginData.password = ''
+        this.v$.$reset()
         this.$router.push({ name: 'workspace' })
       }
     },
