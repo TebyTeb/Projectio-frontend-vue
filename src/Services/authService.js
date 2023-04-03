@@ -13,6 +13,16 @@ async function login (loginData) {
   }
 }
 
+async function signup (signupData) {
+  try {
+    const { data } = await API.post('/auth/signup', signupData)
+    return data
+  } catch (error) {
+    return {error: error.message }
+  }
+}
+
 export default {
-  login
+  login,
+  signup
 }
