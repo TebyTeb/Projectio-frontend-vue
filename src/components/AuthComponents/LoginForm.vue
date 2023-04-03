@@ -18,6 +18,9 @@
         v-model="loginData.password" 
         :error-messages="v$.loginData.password.$errors.map(e => e.$message)"
         label="Password"
+        :type="passwordFlag ? 'text' : 'password'"
+        :append-inner-icon="passwordFlag ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="showPassword"
         required
         @input="v$.loginData.password.$touch"
         @blur="v$.loginData.password.$touch"
@@ -52,7 +55,8 @@ export default {
       loginData: {
         email: '',
         password: ''
-      }
+      },
+      passwordFlag: false
     }
   },
   validations () {
@@ -74,6 +78,9 @@ export default {
         this.loginData.password = ''
         this.$router.push({ name: 'workspace' })
       }
+    },
+    showPassword() {
+      this.passwordFlag = !this.passwordFlag
     }
   }
 }
