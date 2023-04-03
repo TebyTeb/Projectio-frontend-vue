@@ -28,14 +28,15 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn 
-      color="primary" 
-      block
-      @click.prevent="login"
-      >
-        Login
+      <v-btn block> 
+        <router-link :to="{name: 'Signup'}"> I want to register an account </router-link>
       </v-btn>
     </v-card-actions>
+    <v-card-text>
+      <v-btn color="primary" @click.prevent="login" block>
+        Login 
+      </v-btn>
+    </v-card-text>
   </v-card>
 </template>
 
