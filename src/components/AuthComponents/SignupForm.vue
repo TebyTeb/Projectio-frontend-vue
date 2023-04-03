@@ -130,9 +130,10 @@ export default {
           surname: '',
           email: '',
           birthDate: '',
-          password: '',
-          password2: ''
+          password: ''
         })
+        this.password2 = ''
+        
         this.v$.$reset()
         this.$router.push({ name: 'workspace' })
       }
