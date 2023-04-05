@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <v-app-bar color="primary" density='compact'>
     <v-spacer />
       <v-icon>mdi-square</v-icon>
