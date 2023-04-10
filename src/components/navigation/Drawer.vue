@@ -1,22 +1,21 @@
-<script>
-import {useAuthStore} from '../../stores/authStore'
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../../stores/authStore'
 
-export default {
-  data: () => ({
-    store: useAuthStore(),
-    drawer: null,
-    links: [
-      ['mdi-inbox-arrow-down', 'Projects', 'home'],
-      ['mdi-send', 'Sprints', 'about'],
-      ['mdi-delete', 'Profile', 'workspace'],
-    ],
-  }),
-  methods: {
-    logout() {
-      this.store.logout()
-      this.$router.push({name: 'login'})
-    }
-  }
+const router = useRouter()
+const store = useAuthStore()
+
+const drawer = ref(null)
+const links = ref([
+  ['mdi-inbox-arrow-down', 'Projects', 'home'],
+  ['mdi-send', 'Sprints', 'about'],
+  ['mdi-delete', 'Profile', 'workspace']
+])
+
+const logout = () => {
+  store.logout()
+  router.push({ name: 'login' })
 }
 </script>
 
@@ -36,7 +35,7 @@ export default {
           <v-icon>{{ icon }}</v-icon>
         </template>
 
-        <router-link :to='{ name: route }'>
+        <router-link :to="{ name: route }">
           <v-list-item-title>{{ text }}</v-list-item-title>
         </router-link>
       </v-list-item>
@@ -44,7 +43,7 @@ export default {
         <template v-slot:prepend>
           <v-icon>mdi-alert-octagon</v-icon>
         </template>
-          <v-list-item-title>Logout</v-list-item-title>
+        <v-list-item-title>Logout</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
