@@ -1,4 +1,5 @@
 <template>
+  <div class="signup-container">
   <v-card variant="tonal" width="400" class="mx-auto">
     <v-card-item>
       <v-card-title>Login</v-card-title>
@@ -69,9 +70,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn block> 
-        <router-link :to="{name: 'login'}"> I'm already a member </router-link>
-      </v-btn>
+        <v-btn block @click.prevent="goToLogin"> I'm already a member </v-btn>
     </v-card-actions>
     <v-card-text>
       <v-btn color="primary" @click.prevent="signup" block>
@@ -79,6 +78,7 @@
       </v-btn>
     </v-card-text>
   </v-card>
+</div>
 </template>
 
 <script>
@@ -118,6 +118,9 @@ export default {
     }
   },
   methods: {
+    goToLogin() {
+      this.$router.push({name: 'login'})
+    },
     async signup() {
       if (this.v$.$invalid) return alert('Form incomplete. Please check your inputs')
       const response = await API.signup(this.signupData)
@@ -145,4 +148,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.signup-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

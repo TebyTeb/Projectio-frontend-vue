@@ -3,8 +3,7 @@ import SignupForm from '../components/AuthComponents/SignupForm.vue'
 </script>
 
 <template>
-  <v-container>
-    <p>I'm the signup view!!</p>
+  <v-container class="h-100">
     <SignupForm />
   </v-container>
 </template>
