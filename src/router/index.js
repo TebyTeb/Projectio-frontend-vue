@@ -35,7 +35,7 @@ const routes = [
       {
         path: '',
         name: 'workspace',
-        component: ()=> import('@/views/WorkView.vue')
+        component: ()=> import('@/views/ProjectsView.vue')
       },
       {
         path: 'about',

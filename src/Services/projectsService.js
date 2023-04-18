@@ -20,6 +20,20 @@ async function getProjects () {
   }
 }
 
+async function createProject (project) {
+  try {
+    const { data } = await API.post('', project, {
+      headers: {
+        token: store.getToken
+      }
+    })
+    return data
+  } catch (error) {
+    return {error: error.message}
+  }
+}
+
 export default {
-  getProjects
+  getProjects,
+  createProject
 }
