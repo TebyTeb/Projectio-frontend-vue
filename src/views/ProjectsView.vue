@@ -13,8 +13,8 @@ const getProjects = async () => {
   const projects = await API.getProjects()
   projectList.value = projects
 }
-const createProject = async () => {
-  console.log('creando un proyecto nuevo desde el dialog')
+const createProject = async (project) => {
+  console.log('creando un proyecto nuevo desde el dialog', project)
   /* const project = {
     title: 'Cuarto proyecto',
     description: 'Esta es la descripción del cuarto proyecto'
@@ -24,8 +24,8 @@ const createProject = async () => {
   await getProjects()
   alert('Proyecto creado correctamente') */
 }
-const editProject = () => {
-  console.log('Editando un proyecto desde el Dialog')
+const editProject = (project) => {
+  console.log('Editando un proyecto desde el Dialog', project)
 }
 const deleteProject = () => {
   console.log('Eliminnando un proyecto desde el dialog')
@@ -39,10 +39,10 @@ onBeforeMount(async () => {
 <template>
   <v-row no-gutters>
     <v-col cols="3">
-      <v-card ripple hover to class="d-flex ma-3" height="250px">
+      <v-card link ripple class="contenedor d-flex ma-3" height="250px">
         <v-card-text class="d-flex flex-column text-center align-center justify-center">
           <v-icon icon="mdi-plus" size="50" class="ma-4" />
-          <span class="text-h6">CREAR NUEVO ROYECTO</span>
+          <span class="text-h6">CREATE NEW PROJECT</span>
         </v-card-text>
         <ProjectDialog btnTitle="create" @createProject="createProject" />
       </v-card>
