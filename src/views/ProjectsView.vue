@@ -13,22 +13,27 @@ const getProjects = async () => {
   const projects = await API.getProjects()
   projectList.value = projects
 }
-const createProject = async (project) => {
-  console.log('creando un proyecto nuevo desde el dialog', project)
-  /* const project = {
-    title: 'Cuarto proyecto',
-    description: 'Esta es la descripción del cuarto proyecto'
-  }
-  const response = await API.createProject(project)
-  if (response.error) return alert('Algo ha ido mal')
+const createProject = async (projectData) => {
+  const response = await API.createProject(projectData)
+  if (response.error) return alert('Ups! Something went sideways...')
   await getProjects()
-  alert('Proyecto creado correctamente') */
+  alert('Proyecto creado correctamente')
 }
-const editProject = (project) => {
-  console.log('Editando un proyecto desde el Dialog', project)
+
+const editProject = async (id, projectData) => {
+  console.log('Editando un proyecto desde el Dialog', projectData)
+  const response = await API.editProject(id, projectData)
+  if (response.error) return alert('Ups! Something went sideways...')
+  await getProjects()
+  alert('Proyecto editado correctamente')
 }
-const deleteProject = () => {
-  console.log('Eliminnando un proyecto desde el dialog')
+const deleteProject = async (id) => {
+  if (confirm('Do you really want to delete this project?')) {
+    const response = await API.deleteProject(id)
+    if (response.error) return alert('Ups! Something went sideways...')
+    await getProjects()
+    alert('Proyecto eliminado correctamente')
+  }
 }
 // Directive Hooks //
 onBeforeMount(async () => {
