@@ -4,7 +4,7 @@ import {useAuthStore} from '../stores/authStore'
 const store = useAuthStore()
 
 const API = axios.create({
-  baseURL: 'http://localhost:3030/api/projects'
+  baseURL: 'http://localhost:3030/api/projects/'
 })
 
 async function getProjects () {
@@ -33,7 +33,35 @@ async function createProject (project) {
   }
 }
 
+async function editProject (id, newData) {
+  try {
+    const {data} = await API.put(id, newData, {
+      headers: {
+        token: store.getToken
+      }
+    })
+    return data
+  } catch (error) {
+    return {error: error.message}
+  }
+}
+
+async function deleteProject (id) {
+  try {
+    const {data} = await API.delete(id, {
+      headers: {
+        token: store.getToken
+      }
+    })
+    return data
+  } catch (error) {
+    return {error: error.message}
+  }
+}
+
 export default {
   getProjects,
-  createProject
+  createProject,
+  editProject,
+  deleteProject
 }
