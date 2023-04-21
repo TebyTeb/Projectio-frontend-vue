@@ -24,7 +24,7 @@ const passwordFlag = ref(false)
 const v$ = useVuelidate(rules, loginData)
 
 const goToSignup = () => {
-  router.push({ name: 'Signup' })
+  router.push({ name: 'signup' })
 }
 const login = async () => {
   const response = await API.login(loginData)
@@ -35,7 +35,7 @@ const login = async () => {
     loginData.email = ''
     loginData.password = ''
     v$.value.$reset()
-    router.push({ name: 'workspace' })
+    router.push({ name: 'projects' })
   }
 }
 const showPassword = () => {

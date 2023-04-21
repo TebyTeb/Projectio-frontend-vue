@@ -2,7 +2,7 @@
   <div class="signup-container">
   <v-card variant="tonal" width="400" class="mx-auto">
     <v-card-item>
-      <v-card-title>Login</v-card-title>
+      <v-card-title>Signup</v-card-title>
     </v-card-item>
 
     <v-card-text>
@@ -138,7 +138,7 @@ export default {
         this.password2 = ''
         
         this.v$.$reset()
-        this.$router.push({ name: 'workspace' })
+        this.$router.push({ name: 'projects' })
       }
     },
     showPassword() {
