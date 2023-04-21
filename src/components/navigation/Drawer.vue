@@ -2,12 +2,21 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '../../stores/authStore'
+import { useProjectStore } from '../../stores/projectsStore'
+
+import ProjectDialog from '@/components/ProjectComponents/ProjectDialog.vue'
+
 
 const route = useRoute()
 const { projectId } = route.params
-const store = useAuthStore()
+const authStore = useAuthStore()
+const projectStore = useProjectStore()
 
 const drawer = ref(null)
+
+const handleCreateProject = async (projectData) => {
+  await projectStore.createProject(projectData)
+}
 </script>
 
 <template>
@@ -15,7 +24,7 @@ const drawer = ref(null)
     <v-sheet color="grey-lighten-1" class="pa-4">
       <v-avatar class="mb-4" color="grey-darken-1" size="64"></v-avatar>
 
-      <div>{{ store.getEmail }}</div>
+      <div>{{ authStore.getEmail }}</div>
     </v-sheet>
 
     <v-divider></v-divider>
@@ -34,9 +43,8 @@ const drawer = ref(null)
         <template v-slot:prepend>
           <v-icon>mdi-folder-plus-outline</v-icon>
         </template>
-        <router-link :to="{ name: 'projects' }">
           <v-list-item-title>New Project</v-list-item-title>
-        </router-link>
+          <ProjectDialog btnTitle="create" @createProject="handleCreateProject" />
       </v-list-item>
       <div v-if="projectId">
         <v-list-item link>
