@@ -9,7 +9,7 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        component: ()=> import('../views/HomeView.vue')
+        component: () => import('../views/HomeView.vue')
       },
       {
         path: 'about',
@@ -26,7 +26,7 @@ const routes = [
         name: 'Signup',
         component: () => import('@/views/SignupView.vue')
       }
-    ],
+    ]
   },
   {
     path: '/workspace',
@@ -35,12 +35,12 @@ const routes = [
       {
         path: '',
         name: 'workspace',
-        component: ()=> import('@/views/ProjectsView.vue')
+        component: () => import('@/views/ProjectsView.vue')
       },
       {
-        path: 'about',
-        name: 'wabout',
-        component: () => import('@/views/AboutView.vue')
+        path: ':projectId',
+        name: 'summary',
+        component: () => import('@/views/SummaryView.vue')
       }
     ]
   }

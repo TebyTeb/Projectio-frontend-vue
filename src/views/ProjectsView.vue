@@ -53,7 +53,12 @@ onBeforeMount(async () => {
       </v-card>
     </v-col>
     <v-col v-for="(project, idx) in projectList" :key="idx" cols="4" lg="3">
-      <ProjectCard :project="project" @editProject="editProject" @deleteProject="deleteProject" />
+      <ProjectCard
+        :key="$route.params.projectId"
+        :project="project"
+        @editProject="editProject"
+        @deleteProject="deleteProject"
+      />
     </v-col>
   </v-row>
 </template>

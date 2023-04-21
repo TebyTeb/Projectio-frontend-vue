@@ -1,8 +1,11 @@
 <script setup>
 // IMPORTS //
 // -> Dependencies
+import { useRouter } from 'vue-router';
 // -> Components
 import ProjectDialog from './ProjectDialog.vue'
+// Router //
+const router = useRouter()
 // Props //
 const props = defineProps(['project'])
 // Emits //
@@ -10,7 +13,7 @@ const emit = defineEmits(['editProject', 'deleteProject'])
 // States //
 // Handlers //
 const goToProject = () => {
-  console.log(`Redirigiendo al proyecto ${props.project.title}`)
+  router.push({name: 'summary', params: { projectId: props.project._id }})
 }
 </script>
 
