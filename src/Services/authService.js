@@ -22,7 +22,21 @@ async function signup (signupData) {
   }
 }
 
+async function getProfile (token) {
+  try {
+    const data = await API.get('/profile', {
+      headers: {
+        token
+      }
+    })
+    return data
+  } catch (error) {
+    return {error: error.message}
+  }
+}
+
 export default {
   login,
-  signup
+  signup,
+  getProfile
 }
