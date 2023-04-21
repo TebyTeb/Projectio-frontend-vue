@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <SystemBar />
-    <Drawer />
+    <Drawer :key="$route.params" />
     <v-main>
       <RouterView />
     </v-main>
