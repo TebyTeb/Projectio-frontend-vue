@@ -1,43 +1,31 @@
 <script setup>
 // IMPORTS //
 // -> Dependencies
-import { ref, onBeforeMount } from 'vue'
-import API from '../Services/projectsService'
+import { onBeforeMount } from 'vue'
+import { storeToRefs } from 'pinia'
 // -> Components
 import ProjectCard from '@/components/ProjectComponents/ProjectCard.vue'
 import ProjectDialog from '@/components/ProjectComponents/ProjectDialog.vue'
+// Stores //
+import { useProjectStore } from '@/stores/projectsStore'
+const projectStore = useProjectStore()
 // States //
-const projectList = ref([])
+const {projectList} = storeToRefs(projectStore)
 // Handlers //
-const getProjects = async () => {
-  const projects = await API.getProjects()
-  projectList.value = projects
+const handleCreateProject = async (projectData) => {
+  await projectStore.createProject(projectData)
 }
-const createProject = async (projectData) => {
-  const response = await API.createProject(projectData)
-  if (response.error) return alert('Ups! Something went sideways...')
-  await getProjects()
-  alert('Proyecto creado correctamente')
+const handleEditProject = async (id, projectData) => {
+  await projectStore.editProject(id, projectData)
 }
-
-const editProject = async (id, projectData) => {
-  console.log('Editando un proyecto desde el Dialog', projectData)
-  const response = await API.editProject(id, projectData)
-  if (response.error) return alert('Ups! Something went sideways...')
-  await getProjects()
-  alert('Proyecto editado correctamente')
-}
-const deleteProject = async (id) => {
+const handleDeleteProject = async (id) => {
   if (confirm('Do you really want to delete this project?')) {
-    const response = await API.deleteProject(id)
-    if (response.error) return alert('Ups! Something went sideways...')
-    await getProjects()
-    alert('Proyecto eliminado correctamente')
+    await projectStore.deleteProject(id)
   }
 }
 // Directive Hooks //
 onBeforeMount(async () => {
-  await getProjects()
+  await projectStore.getProjects()
 })
 </script>
 
@@ -49,15 +37,15 @@ onBeforeMount(async () => {
           <v-icon icon="mdi-plus" size="50" class="ma-4" />
           <span class="text-h6">CREATE NEW PROJECT</span>
         </v-card-text>
-        <ProjectDialog btnTitle="create" @createProject="createProject" />
+        <ProjectDialog btnTitle="create" @createProject="handleCreateProject" />
       </v-card>
     </v-col>
     <v-col v-for="(project, idx) in projectList" :key="idx" cols="4" lg="3">
       <ProjectCard
         :key="$route.params.projectId"
         :project="project"
-        @editProject="editProject"
-        @deleteProject="deleteProject"
+        @editProject="handleEditProject"
+        @deleteProject="handleDeleteProject"
       />
     </v-col>
   </v-row>
