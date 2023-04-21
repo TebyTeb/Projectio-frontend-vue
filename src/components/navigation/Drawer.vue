@@ -8,7 +8,7 @@ const store = useAuthStore()
 
 const drawer = ref(null)
 const links = ref([
-  ['mdi-inbox-arrow-down', 'Projects', 'home'],
+  ['mdi-inbox-arrow-down', 'Projects', 'workspace'],
   ['mdi-send', 'Sprints', 'about'],
   ['mdi-delete', 'Profile', 'workspace']
 ])
