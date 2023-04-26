@@ -10,7 +10,7 @@ import ProjectDialog from '@/components/ProjectComponents/ProjectDialog.vue'
 import { useProjectStore } from '@/stores/projectsStore'
 const projectStore = useProjectStore()
 // States //
-const {projectList} = storeToRefs(projectStore)
+const { projectList } = storeToRefs(projectStore)
 // Handlers //
 const handleCreateProject = async (projectData) => {
   await projectStore.createProject(projectData)
@@ -30,25 +30,27 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <v-row no-gutters>
-    <v-col cols="3">
-      <v-card link ripple class="contenedor d-flex ma-3" height="250px">
-        <v-card-text class="d-flex flex-column text-center align-center justify-center">
-          <v-icon icon="mdi-plus" size="50" class="ma-4" />
-          <span class="text-h6">CREATE NEW PROJECT</span>
-        </v-card-text>
-        <ProjectDialog btnTitle="create" @createProject="handleCreateProject" />
-      </v-card>
-    </v-col>
-    <v-col v-for="(project, idx) in projectList" :key="idx" cols="4" lg="3">
-      <ProjectCard
-        :key="$route.params.projectId"
-        :project="project"
-        @editProject="handleEditProject"
-        @deleteProject="handleDeleteProject"
-      />
-    </v-col>
-  </v-row>
+  <v-container class="ma-0 pa-0">
+    <v-row no-gutters>
+      <v-col cols="3">
+        <v-card link ripple class="contenedor d-flex ma-3" height="250px">
+          <v-card-text class="d-flex flex-column text-center align-center justify-center">
+            <v-icon icon="mdi-plus" size="50" class="ma-4" />
+            <span class="text-h6">CREATE NEW PROJECT</span>
+          </v-card-text>
+          <ProjectDialog btnTitle="create" @createProject="handleCreateProject" />
+        </v-card>
+      </v-col>
+      <v-col v-for="(project, idx) in projectList" :key="idx" cols="4" lg="3">
+        <ProjectCard
+          :key="$route.params.projectId"
+          :project="project"
+          @editProject="handleEditProject"
+          @deleteProject="handleDeleteProject"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <style scoped></style>

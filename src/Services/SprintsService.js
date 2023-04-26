@@ -23,6 +23,20 @@ async function getProjectSprints(id) {
   }
 }
 
+async function createSprint(sprint) {
+  try {
+    const { data } = await API.post('', sprint, {
+      headers: {
+        token: store.getToken
+      }
+    })
+    return data
+  } catch (error) {
+    return { error: error }
+  }
+}
+
 export default {
-  getProjectSprints
+  getProjectSprints,
+  createSprint
 }

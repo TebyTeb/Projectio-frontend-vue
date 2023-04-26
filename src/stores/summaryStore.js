@@ -32,10 +32,18 @@ export const useSummaryStore = defineStore('summary', () => {
     await fetchTasks(projectId)
   }
 
+  const createSprint = async (sprintData) => {
+    const response = await sprintsAPI.createSprint(sprintData)
+    if (response.error) return alert('Ups! Something went sideways...' + response)
+    await fetchSprints(projectData.value._id)
+  }
+
   return {
     projectData,
     sprintList,
     taskList,
-    fetchAllData
+    fetchAllData,
+    fetchTasks,
+    createSprint
   }
 })
