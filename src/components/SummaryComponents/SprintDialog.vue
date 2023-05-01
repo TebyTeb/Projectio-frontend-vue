@@ -15,12 +15,14 @@ const rules = {
 // Default data //
 const initialData = {
   title: '',
-  description:''
+  startDate: Date.now(),
+  endDate: ''
 }
 // States //
 const dialog = ref(false)
 const sprint = reactive({
   title: props.sprint ? props.sprint.title : '',
+  startDate: props.sprint ? props.sprint.startDate : Date.now(),
   endDate: props.sprint ? props.sprint.endDate : ''
 })
 
@@ -49,7 +51,7 @@ const handleCancel = () => {
 
 <template>
   <v-dialog v-model="dialog" activator="parent" width="auto">
-    <v-card width="400" class="mx-auto">
+    <v-card width="400" class="mx-auto overflow-visible">
       <v-card-item>
         <v-card-title v-if="props.sprint">Edit Sprint</v-card-title>
         <v-card-title v-else>Create New Sprint</v-card-title>
@@ -64,14 +66,36 @@ const handleCancel = () => {
             label="Sprint title"
             :value="sprint.title"
           />
-          <v-text-field
-            v-model="sprint.endDate"
-            :error-messages="v$.endDate.$errors.map((e) => e.$message)"
-            type="date"
-            required
-            @blur="v$.endDate.$touch"
-            :value="sprint.endDate"
-          />
+          <v-card-text class="d-flex px-0">
+            <div>
+              <label>Start Date</label>
+              <VueDatePicker
+                :dark="true"
+                format="dd-MM-yyyy"
+                :enable-time-picker="false"
+                v-model="sprint.startDate"
+                :error-messages="v$.endDate.$errors.map((e) => e.$message)"
+                type="date"
+                required
+                @blur="v$.endDate.$touch"
+                :value="sprint.startDate"
+              />
+            </div>
+            <div>
+              <label>End Date</label>
+              <VueDatePicker
+                :dark="true"
+                format="dd-MM-yyyy"
+                :enable-time-picker="false"
+                v-model="sprint.endDate"
+                :error-messages="v$.endDate.$errors.map((e) => e.$message)"
+                type="date"
+                required
+                @blur="v$.endDate.$touch"
+                :value="sprint.endDate"
+              />
+            </div>
+          </v-card-text>
         </v-form>
       </v-card-text>
 
