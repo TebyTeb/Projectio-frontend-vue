@@ -1,6 +1,6 @@
 // Plugins
 import vue from '@vitejs/plugin-vue'
-import vuetify from 'vite-plugin-vuetify'
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import eslint from 'vite-plugin-eslint'
 
 // Utilities
@@ -11,15 +11,32 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: { transformAssetUrls }
+    }),
     vuetify({ autoImport: true }),
     eslint({
       include: ['src/**/*.ts', 'src/**/*.vue', 'src/*.ts', 'src/*.vue'],
     })
   ],
+  define: { 'process.env': {} },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+    },
+    extensions: [
+      '.js',
+      '.json',
+      '.jsx',
+      '.mjs',
+      '.ts',
+      '.jsx',
+      '.js',
+      '.vue',
+
+    ]
+  },
+  server: {
+    port: 5000
   }
 })

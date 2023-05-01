@@ -1,5 +1,6 @@
 // Components
 import App from './App.vue'
+import VueDatePicker from '@vuepic/vue-datepicker'
 
 // Composables
 import { createApp } from 'vue'
@@ -11,9 +12,11 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 
 // Styles
-import './assets/main.css'
+import '@vuepic/vue-datepicker/dist/main.css'
+import './assets/base.css'
 
 app
+  .component('VueDatePicker', VueDatePicker)
   .use(createPinia())
   .use(router)
   .use(vuetify)
