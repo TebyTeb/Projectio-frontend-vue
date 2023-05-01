@@ -17,6 +17,10 @@ const { projectId } = route.params
 // States //
 // const { projectData, sprintList, taskList } = storeToRefs(summaryStore)
 const { sprintList, taskList } = storeToRefs(summaryStore)
+// Handlers //
+const handleEditSprint = async (id, sprintData) => {
+  await summaryStore.editSprint(id, sprintData)
+}
 // Directive Hooks //
 onMounted(async () => {
   summaryStore.fetchAllData(projectId)
@@ -62,6 +66,7 @@ const onDrop = async (evt, item) => {
             :key="idx"
             :sprintData="sprint"
             :taskList="taskList?.length > 0 ? taskList : []"
+            @editSprint="handleEditSprint"
             @drop="onDrop($event, sprint)"
             @dragover.prevent
             @dragenter.prevent

@@ -16,8 +16,13 @@ export const useSummaryStore = defineStore('summary', () => {
   }
   const fetchSprints = async(projectId) => {
     const sprints = await sprintsAPI.getProjectSprints(projectId)
-    if (sprints.error) return alert('Something went sideways...', sprints.error)
+    if (sprints.error) return alert('Something went sideways...' + sprints.error)
     sprintList.value = sprints
+  }
+  const editSprint = async (sprintId, sprintData) => {
+    const response = await sprintsAPI.editSprint(sprintId, sprintData)
+    if (response.error) return alert('Something went sideways...' + response.error)
+    await fetchSprints(projectData.value._id)
   }
   const fetchTasks = async (projectId) => {
     const taskParams = {project: projectId}
@@ -44,6 +49,7 @@ export const useSummaryStore = defineStore('summary', () => {
     taskList,
     fetchAllData,
     fetchTasks,
-    createSprint
+    createSprint,
+    editSprint
   }
 })
