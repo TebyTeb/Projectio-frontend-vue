@@ -28,7 +28,11 @@ const handleCreateSprint = async (sprintData) => {
   await summaryStore.createSprint(newSprint)
 }
 const handleCreateTask = async (taskData) => {
-  await summaryStore.createTask(taskData)
+  const newTask = {
+    projectId: summaryStore.projectData._id,
+    ...taskData
+  }
+  await summaryStore.createTask(newTask)
 }
 </script>
 

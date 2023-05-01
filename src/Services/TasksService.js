@@ -21,6 +21,19 @@ async function getTasks(params) {
   }
 }
 
+async function createTask(taskData) {
+  try {
+    const { data } = await API.post('', taskData, {
+      headers: {
+        token: store.getToken
+      }
+    })
+    return data
+  } catch (error) {
+    return { error: error.message }
+  }
+}
+
 async function editTask(id, newData) {
   try {
     const { data } = await API.put(`/${id}`, newData, {
@@ -36,5 +49,6 @@ async function editTask(id, newData) {
 
 export default {
   getTasks,
+  createTask,
   editTask
 }

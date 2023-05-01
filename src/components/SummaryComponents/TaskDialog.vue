@@ -16,14 +16,16 @@ const rules = {
 const initialData = {
   title: '',
   content:'',
+  startDate: Date. now(),
   endDate: ''
 }
 // States //
 const dialog = ref(false)
 const task = reactive({
   title: props.task ? props.task.title : '',
+  startDate: props.task ? props.task.startDate : Date.now(),
+  endDate: props.task ? props.task.endDate : '',
   content: props.task ? props.task.content : '',
-  endDate: props.task ? props.task.endDate : ''
 })
 
 const v$ = useVuelidate(rules, task)
@@ -51,7 +53,7 @@ const handleCancel = () => {
 
 <template>
   <v-dialog v-model="dialog" activator="parent" width="auto">
-    <v-card width="400" class="mx-auto">
+    <v-card width="400" class="mx-auto overflow-visible">
       <v-card-item>
         <v-card-title v-if="props.task">Edit Task</v-card-title>
         <v-card-title v-else>Create New Task</v-card-title>
@@ -66,14 +68,36 @@ const handleCancel = () => {
             label="Task title"
             :value="task.title"
           />
-          <v-text-field
-            v-model="task.endDate"
-            :error-messages="v$.endDate.$errors.map((e) => e.$message)"
-            type="date"
-            required
-            @blur="v$.endDate.$touch"
-            :value="task.endDate"
-          />
+          <v-card-text class="d-flex px-0">
+            <div>
+              <label>Start Date</label>
+              <VueDatePicker
+                :dark="true"
+                format="dd-MM-yyyy"
+                :enable-time-picker="false"
+                v-model="task.startDate"
+                :error-messages="v$.endDate.$errors.map((e) => e.$message)"
+                type="date"
+                required
+                @blur="v$.endDate.$touch"
+                :value="task.startDate"
+              />
+            </div>
+            <div>
+              <label>End Date</label>
+              <VueDatePicker
+                :dark="true"
+                format="dd-MM-yyyy"
+                :enable-time-picker="false"
+                v-model="task.endDate"
+                :error-messages="v$.endDate.$errors.map((e) => e.$message)"
+                type="date"
+                required
+                @blur="v$.endDate.$touch"
+                :value="task.endDate"
+              />
+            </div>
+          </v-card-text>
           <v-textarea
             v-model="task.content"
             label="Task content"

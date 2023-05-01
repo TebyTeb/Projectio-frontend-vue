@@ -14,21 +14,34 @@ export const useSummaryStore = defineStore('summary', () => {
     if (data.error) return alert('Something went sideways...', data.error)
     projectData.value = data 
   }
+
   const fetchSprints = async(projectId) => {
     const sprints = await sprintsAPI.getProjectSprints(projectId)
     if (sprints.error) return alert('Something went sideways...' + sprints.error)
     sprintList.value = sprints
+  }
+  const createSprint = async (sprintData) => {
+    const response = await sprintsAPI.createSprint(sprintData)
+    if (response.error) return alert('Ups! Something went sideways...' + response)
+    await fetchSprints(projectData.value._id)
   }
   const editSprint = async (sprintId, sprintData) => {
     const response = await sprintsAPI.editSprint(sprintId, sprintData)
     if (response.error) return alert('Something went sideways...' + response.error)
     await fetchSprints(projectData.value._id)
   }
+
   const fetchTasks = async (projectId) => {
     const taskParams = {project: projectId}
     const tasks = await tasksAPI.getTasks(taskParams)
     if (tasks.error) return alert('Something went sideways...', tasks.error)
     taskList.value = tasks
+  }
+  const createTask = async (taskData) => {
+    const response = await tasksAPI.createTask(taskData)
+    console.log(response)
+    if (response.error) return alert('Ups! Something went sideways...' + response)
+    await fetchTasks(projectData.value._id)
   }
 
   const fetchAllData = async (projectId) => {
@@ -37,19 +50,15 @@ export const useSummaryStore = defineStore('summary', () => {
     await fetchTasks(projectId)
   }
 
-  const createSprint = async (sprintData) => {
-    const response = await sprintsAPI.createSprint(sprintData)
-    if (response.error) return alert('Ups! Something went sideways...' + response)
-    await fetchSprints(projectData.value._id)
-  }
 
   return {
     projectData,
     sprintList,
     taskList,
     fetchAllData,
-    fetchTasks,
     createSprint,
-    editSprint
+    editSprint,
+    fetchTasks,
+    createTask
   }
 })
