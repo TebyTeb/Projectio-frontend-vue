@@ -4,7 +4,7 @@ import { useAuthStore } from '../stores/authStore'
 const store = useAuthStore()
 
 const API = axios.create({
-  baseURL: 'http://localhost:3030/api/sprints'
+  baseURL: 'https://projectio-api.onrender.com/api/sprints'
 })
 
 async function getProjectSprints(id) {

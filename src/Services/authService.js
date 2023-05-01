@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API = axios.create({
-  baseURL: 'http://localhost:3030/api'
+  baseURL: 'https://projectio-api.onrender.com/api'
 })
 
 async function login (loginData) {
