@@ -47,8 +47,22 @@ async function editTask(id, newData) {
   }
 }
 
+async function deleteTask(id) {
+  try {
+    const { data } = await API.delete(`/${id}`, {
+      headers: {
+        token: store.getToken
+      }
+    })
+    return data
+  } catch (error) {
+    return { error: error.message }
+  }
+}
+
 export default {
   getTasks,
   createTask,
-  editTask
+  editTask,
+  deleteTask
 }

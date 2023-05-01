@@ -12,10 +12,10 @@ export const useSummaryStore = defineStore('summary', () => {
   const fetchProject = async (projectId) => {
     const data = await projectsAPI.getProjectById(projectId)
     if (data.error) return alert('Something went sideways...', data.error)
-    projectData.value = data 
+    projectData.value = data
   }
 
-  const fetchSprints = async(projectId) => {
+  const fetchSprints = async (projectId) => {
     const sprints = await sprintsAPI.getProjectSprints(projectId)
     if (sprints.error) return alert('Something went sideways...' + sprints.error)
     sprintList.value = sprints
@@ -32,16 +32,27 @@ export const useSummaryStore = defineStore('summary', () => {
   }
 
   const fetchTasks = async (projectId) => {
-    const taskParams = {project: projectId}
+    const taskParams = { project: projectId }
     const tasks = await tasksAPI.getTasks(taskParams)
     if (tasks.error) return alert('Something went sideways...', tasks.error)
     taskList.value = tasks
   }
   const createTask = async (taskData) => {
     const response = await tasksAPI.createTask(taskData)
-    console.log(response)
     if (response.error) return alert('Ups! Something went sideways...' + response)
     await fetchTasks(projectData.value._id)
+  }
+  const editTask = async (taskId, taskData) => {
+    const response = await tasksAPI.editTask(taskId, taskData)
+    if (response.error) return alert('Something went sideways...' + response.error)
+    await fetchTasks(projectData.value._id)
+  }
+  const deleteTask = async (taskId) => {
+    if (confirm('Do you really want to delete this task?')) {
+      const response = await tasksAPI.deleteTask(taskId)
+      if (response.error) return alert('Ups! Something went sideways...' + response)
+      await fetchTasks(projectData.value._id)
+    }
   }
 
   const fetchAllData = async (projectId) => {
@@ -49,7 +60,6 @@ export const useSummaryStore = defineStore('summary', () => {
     await fetchSprints(projectId)
     await fetchTasks(projectId)
   }
-
 
   return {
     projectData,
@@ -59,6 +69,8 @@ export const useSummaryStore = defineStore('summary', () => {
     createSprint,
     editSprint,
     fetchTasks,
-    createTask
+    createTask,
+    editTask,
+    deleteTask
   }
 })
