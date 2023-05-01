@@ -36,7 +36,7 @@ const goToProject = () => {
     </v-card-text>
     <v-card-actions class="mb-0 justify-end">
       <v-btn color="warning">
-        Editar
+        Edit
         <ProjectDialog
           @editProject="(projectData) => emit('editProject', props.project._id, projectData)"
           btnTitle="edit"
@@ -44,7 +44,7 @@ const goToProject = () => {
         />
       </v-btn>
       <v-spacer />
-      <v-btn color="error" @click.stop="emit('deleteProject', props.project._id)">Eliminar</v-btn>
+      <v-btn color="error" @click.stop="emit('deleteProject', props.project._id)">Delete</v-btn>
     </v-card-actions>
   </v-card>
 </template>
