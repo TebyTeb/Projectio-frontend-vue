@@ -15,15 +15,15 @@ const numberOfTasks = computed(() => {
     <div>
       <v-card-item>
         <v-card-title>{{ props.sprintData.title }}</v-card-title>
-        <v-card-subtitle>{{ new Date(props.sprintData.startDate).toDateString() }}</v-card-subtitle>
-        <v-card-subtitle>{{ new Date(props.sprintData.endDate).toDateString() }}</v-card-subtitle>
+        <v-card-subtitle>From: {{ new Date(props.sprintData.startDate).toDateString() }}</v-card-subtitle>
+        <v-card-subtitle>To: {{ new Date(props.sprintData.endDate).toDateString() }}</v-card-subtitle>
       </v-card-item>
       <v-card-text>Tasks: {{ numberOfTasks }} </v-card-text>
     </div>
     <v-spacer />
     <v-card-actions class="mb-0 d-flex flex-column justify-space-between">
-      <v-btn color="warning">
-        Edit
+      <v-btn :icon="true" color="warning">
+        <v-icon>mdi-pencil-outline</v-icon>
         <SprintDialog
           @editSprint="(sprintData) => emit('editSprint', props.sprintData._id, sprintData)"
           btnTitle="edit"
