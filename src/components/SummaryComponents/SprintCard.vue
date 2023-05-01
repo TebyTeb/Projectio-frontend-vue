@@ -1,17 +1,28 @@
 <script setup>
+// IMPORTS //
+// -> Dependencies
 import { computed } from 'vue'
-const props = defineProps(['sprintData', 'taskList'])
-const emit = defineEmits(['editSprint'])
-
+import { useRouter } from 'vue-router'
+// -> Components
 import SprintDialog from './SprintDialog.vue'
-
+// Router //
+const router = useRouter()
+// Props //
+const props = defineProps(['sprintData', 'taskList'])
+// Emits //
+const emit = defineEmits(['editSprint'])
+// Computed Properties //
 const numberOfTasks = computed(() => {
   return props.taskList.filter((task) => task.sprintId?.title === props.sprintData?.title).length
 })
+// Handlers //
+const goToSprint = () => {
+  router.push({name: 'sprint', params: { sprintId: props.sprintData._id }})
+}
 </script>
 
 <template>
-  <v-card color="grey-darken-3" class="d-flex justify-space-between ma-1">
+  <v-card color="grey-darken-3" class="d-flex justify-space-between ma-1" @click="goToSprint">
     <div>
       <v-card-item>
         <v-card-title>{{ props.sprintData.title }}</v-card-title>

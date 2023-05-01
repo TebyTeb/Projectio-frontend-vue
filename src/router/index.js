@@ -43,6 +43,11 @@ const routes = [
         path: ':projectId',
         name: 'summary',
         component: () => import('@/views/SummaryView.vue')
+      },
+      {
+        path: '/sprint/:sprintId',
+        name: 'sprint',
+        component: () => import('@/views/KanbanView.vue')
       }
     ]
   }
