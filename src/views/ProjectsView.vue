@@ -19,9 +19,7 @@ const handleEditProject = async (id, projectData) => {
   await projectStore.editProject(id, projectData)
 }
 const handleDeleteProject = async (id) => {
-  if (confirm('Do you really want to delete this project?')) {
     await projectStore.deleteProject(id)
-  }
 }
 // Directive Hooks //
 onBeforeMount(async () => {
