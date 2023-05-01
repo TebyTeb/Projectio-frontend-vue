@@ -21,6 +21,12 @@ const { sprintList, taskList } = storeToRefs(summaryStore)
 const handleEditSprint = async (id, sprintData) => {
   await summaryStore.editSprint(id, sprintData)
 }
+const handleEditTask = async (id, taskData) => {
+  await summaryStore.editTask(id, taskData)
+}
+const handleDeleteTask = async (id) => {
+  await summaryStore.deleteTask(id)
+}
 // Directive Hooks //
 onMounted(async () => {
   summaryStore.fetchAllData(projectId)
@@ -32,12 +38,10 @@ const startDrag = (evt, item) => {
   evt.dataTransfer.setData('itemID', item._id)
 }
 const onDrop = async (evt, item) => {
-  console.log(item._id)
   const itemID = evt.dataTransfer.getData('itemID')
-  console.log(`Dragging ${itemID} into ${item.title}`)
   const assignedSprint = {sprintId: item._id}
   const response = await taskAPI.editTask(itemID, assignedSprint)
-  console.log(response)
+  if (response.error) return alert('something went sideways...' + response.error.message)
   await summaryStore.fetchTasks(projectId)
 
 }
@@ -54,6 +58,8 @@ const onDrop = async (evt, item) => {
             :key="idx"
             :taskData="task"
             draggable="true"
+            @editTask="handleEditTask"
+            @deleteTask="handleDeleteTask"
             @dragstart="startDrag($event, task)"
           />
         </v-sheet>
