@@ -16,7 +16,7 @@ const route = useRoute()
 const { projectId } = route.params
 // States //
 // const { projectData, sprintList, taskList } = storeToRefs(summaryStore)
-const { sprintList, taskList } = storeToRefs(summaryStore)
+const { sprintList, taskList, projectLists } = storeToRefs(summaryStore)
 // Handlers //
 const handleEditSprint = async (id, sprintData) => {
   await summaryStore.editSprint(id, sprintData)
@@ -50,6 +50,7 @@ const onDrop = async (evt, item) => {
 <template>
   <v-container>
     <v-row no-gutters>
+      {{ projectLists }}
       <v-col cols="6">
         TASKS
         <v-sheet height="88vh" class="overflow-auto">

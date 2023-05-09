@@ -3,16 +3,25 @@ import { defineStore } from 'pinia'
 import projectsAPI from '../Services/projectsService'
 import sprintsAPI from '../Services/SprintsService'
 import tasksAPI from '../Services/TasksService'
+import listsAPI from '../Services/listsService'
 
 export const useSummaryStore = defineStore('summary', () => {
   const projectData = ref(null)
+  const projectColumns = ref(null)
   const sprintList = ref(null)
   const taskList = ref(null)
 
   const fetchProject = async (projectId) => {
     const data = await projectsAPI.getProjectById(projectId)
-    if (data.error) return alert('Something went sideways...', data.error)
+    if (data.error) return alert('Something went sideways...' + data.error)
     projectData.value = data
+    console.log(projectData.value._id)
+  }
+
+  const fetchProjectColumns = async () => {
+    const data = await listsAPI.getProjectLists({project: projectData.value._id})
+    if (data.error) return alert('Bad request')
+    projectColumns.value = data
   }
 
   const fetchSprints = async (projectId) => {
@@ -57,15 +66,18 @@ export const useSummaryStore = defineStore('summary', () => {
 
   const fetchAllData = async (projectId) => {
     await fetchProject(projectId)
+    await fetchProjectColumns()
     await fetchSprints(projectId)
     await fetchTasks(projectId)
   }
 
   return {
     projectData,
+    projectColumns,
     sprintList,
     taskList,
     fetchAllData,
+    fetchProjectColumns,
     createSprint,
     editSprint,
     fetchTasks,
