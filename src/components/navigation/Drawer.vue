@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '../../stores/authStore'
 import { useProjectStore } from '../../stores/projectsStore'
 import { useSummaryStore } from '../../stores/summaryStore'
@@ -10,10 +11,11 @@ import SprintDialog from '@/components/SummaryComponents/SprintDialog.vue'
 import TaskDialog from '@/components/SummaryComponents/TaskDialog.vue'
 
 const route = useRoute()
-const { projectId } = route.params
+const { projectId, sprintId } = route.params
 const authStore = useAuthStore()
 const projectStore = useProjectStore()
 const summaryStore = useSummaryStore()
+const { projectData } = storeToRefs(summaryStore)
 
 const drawer = ref(null)
 
@@ -56,7 +58,7 @@ const handleCreateTask = async (taskData) => {
         </v-list-item>
       </router-link>
 
-      <v-list-item v-if="!projectId" link>
+      <v-list-item v-if="!projectId && !sprintId" link>
         <template v-slot:prepend>
           <v-icon>mdi-folder-plus-outline</v-icon>
         </template>
@@ -79,6 +81,16 @@ const handleCreateTask = async (taskData) => {
           <v-list-item-title>New Task</v-list-item-title>
           <TaskDialog btnTitle="create" @createTask="handleCreateTask" />
         </v-list-item>
+      </div>
+      <div v-if="sprintId">
+        <router-link :to="{ name: 'summary', params: { projectId: projectData ? projectData._id : route.query.projectId } }">
+        <v-list-item link>
+          <template v-slot:prepend>
+            <v-icon>mdi-book-outline</v-icon>
+          </template>
+          <v-list-item-title>Summary</v-list-item-title>
+        </v-list-item>
+      </router-link>
       </div>
     </v-list>
   </v-navigation-drawer>

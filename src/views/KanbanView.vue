@@ -3,8 +3,7 @@
 import ListComponent from '@/components/KanbanComponents/ListComponent.vue'
 import { storeToRefs } from 'pinia'
 // Draggable //
-import { VueDraggableNext } from 'vue-draggable-next'
-const draggable = VueDraggableNext
+import Draggable from 'vuedraggable'
 
 // Stores //
 import { useSummaryStore } from '../stores/summaryStore'
@@ -14,11 +13,18 @@ const { projectColumns } = storeToRefs(summaryStore)
 </script>
 
 <template>
-  <draggable :options="{ group: projectColumns }" group="projectColumns">
-    <div class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden fill-height align-center">
-      <ListComponent v-for="(list, idx) in projectColumns" :key="idx" :list="list" />
-    </div>
-  </draggable>
+  <div class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden fill-height align-center">
+    <Draggable
+      v-model="projectColumns"
+      group="columns"
+      item-key="_id"
+      class="d-flex"
+    >
+    <template #item="list">
+      <ListComponent :list="list" />
+    </template>
+    </Draggable>
+  </div>
 </template>
 
 <style scoped></style>
