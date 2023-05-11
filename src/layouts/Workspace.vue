@@ -2,7 +2,7 @@
   <v-app>
     <SystemBar />
     <Drawer :key="$route.params" />
-    <v-main>
+    <v-main class="overflow-y-hiddden">
       <RouterView />
     </v-main>
   </v-app>
@@ -12,3 +12,7 @@
 import SystemBar from '../components/navigation/SystemBar.vue'
 import Drawer from '../components/navigation/Drawer.vue'
 </script>
+
+<style scoped>
+
+</style>

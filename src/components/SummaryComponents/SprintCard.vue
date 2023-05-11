@@ -2,11 +2,12 @@
 // IMPORTS //
 // -> Dependencies
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 // -> Components
 import SprintDialog from './SprintDialog.vue'
 // Router //
 const router = useRouter()
+const route = useRoute()
 // Props //
 const props = defineProps(['sprintData', 'taskList'])
 // Emits //
@@ -17,7 +18,7 @@ const numberOfTasks = computed(() => {
 })
 // Handlers //
 const goToSprint = () => {
-  router.push({name: 'sprint', params: { sprintId: props.sprintData._id }})
+  router.push({name: 'sprint', params: { sprintId: props.sprintData._id }, query: { projectId: route.params.projectId}})
 }
 </script>
 

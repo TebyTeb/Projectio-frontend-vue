@@ -70,7 +70,7 @@ const showPassword = () => {
             required
             @input="v$.password.$touch"
             @blur="v$.password.$touch"
-            @keyup.enter="login"
+            @keyup.enter.prevent="login"
           />
         </v-form>
       </v-card-text>
